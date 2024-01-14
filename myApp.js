@@ -4,17 +4,31 @@ const{ Schema, model } = require("mongoose")
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-let personSchema = new Schema({
+// const personSchema = new Schema({
+//   name: {
+//     type: String,
+//     required: true
+//   },
+//   age: Number,
+//   favouriteFoodsname: [String] ,
+    
+// });
+
+// const Person = model('Person', personSchema);
+
+let Person;
+
+const personSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
   },
-  age: Number,
-  favouriteFoodsname: [String] ,
-    
+  age: {
+    type: Number
+  },
+  favoriteFoods: [String]
 });
-
-let Person = model('Person', personSchema);
+Person = mongoose.model('Person', personSchema);
 
 // let Person;
 
