@@ -10,10 +10,8 @@ const personSchema = new mongoose.Schema({
     required: true
   },
   age: Number,
-  favouriteFoodsname: {
-    type: [String],
-    required: true
-  },
+  favouriteFoodsname: [String] ,
+    
 });
 
 let Person = mongoose.model('Person', personSchema);
