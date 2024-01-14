@@ -56,24 +56,29 @@ const findPeopleByName = (personName, done) => {
   }) 
 };
 
-// const findOneByFood = (food, done) => {
-//   Person.findOne({food: "Egg"}, (err, people) => {
-//     if (err)
-//     return done(err)
-//      return done(null, people);
-//   })
-  
-// };
-
+// Define a function named findOneByFood that takes two parameters: food and done.
 const findOneByFood = (food, done) => {
+  // Use the findOne method of the Person model (presumably a MongoDB model) to find a document
+  // where the favoriteFoods field matches the provided 'food'.
   Person.findOne({ favoriteFoods: food }, (err, foundPerson) => {
-    if (err) done(err);
-    done(null, foundPerson);
+    // Check if there's an error during the database query.
+    if (err) {
+      // If there is an error, call the 'done' callback with the error.
+      done(err);
+   
+      // If there is no error, call the 'done' callback with null (indicating no error) and the found person.
+      done(null, foundPerson);
+    }
   });
 };
 
+
 const findPersonById = (personId, done) => {
-  done(null /*, data*/);
+  Person.findById({name_id: personId}, (err, idFound) => {
+    if(err)
+    done(err)
+    done(null, idFound)
+  })
 };
 
 const findEditThenSave = (personId, done) => {
