@@ -4,17 +4,6 @@ const mongoose = require('mongoose');
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// const personSchema = new Schema({
-//   name: {
-//     type: String,
-//     required: true
-//   },
-//   age: Number,
-//   favouriteFoodsname: [String] ,
-    
-// });
-
-// const Person = model('Person', personSchema);
 
 let Person;
 
@@ -31,10 +20,6 @@ const personSchema = new mongoose.Schema({
 Person = mongoose.model('Person', personSchema);
 
 
-// const createAndSavePerson = (done) => {
-//   done(null /*, data*/);
-// };
-
 const createAndSavePerson = (done) => {
   var newPerson = new Person({
     name: "Joy",
@@ -48,24 +33,10 @@ const createAndSavePerson = (done) => {
   });
 };
 
-// const arrayOfPeople = [
-//   {name: "James", age: "34", favoriteFoods: ['rice', 'egg']},
-//   {name: "Joy", age: "13", favoriteFoods: ['rice', 'yam']},
-//   {name: "Ken", age: "37", favoriteFoods: ['beans', 'egg']},
-//   {name: "Paul", age: "24", favoriteFoods: ['rice', 'cheese']},
-// ]
-
-// const createManyPeople = (arrayOfPeople, done) => {
-//   new Person.create(arrayOfPeople, (err, people) => {
-//     if (err)
-//       return done(err);
-//     return done(null, people);
-//   });
-// };
 const arrayOfPeople = [
-  { name: 'John', age: 25, favoriteFoods: ['Pizza', 'Burger'] },
-  { name: 'Mary', age: 30, favoriteFoods: ['Sushi', 'Tacos'] },
-  { name: 'Alex', age: 20, favoriteFoods: ['Ramen', 'Chicken'] }
+  { name: 'James', age: 15, favoriteFoods: ['beans', 'mango'] },
+  { name: 'Joy', age: 33, favoriteFoods: ['Apple', 'Rice'] },
+  { name: 'Jane', age: 45, favoriteFoods: ['Egg', 'Chicken'] }
 ];
 
 const createManyPeople = (arrayOfPeople, done) => {
@@ -78,7 +49,11 @@ const createManyPeople = (arrayOfPeople, done) => {
 
 
 const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+  Person.find({name: personName}, (err, people) => {
+    if (err)
+    return done(err);
+  return done(null, people);
+  }) 
 };
 
 const findOneByFood = (food, done) => {
