@@ -81,11 +81,34 @@ const findPersonById = (personId, done) => {
   })
 };
 
+
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
 
-  done(null /*, data*/);
+  // Find the person by their ID
+  Person.findById(personId, (err, foundPerson) => {
+    if (err) {
+      // Handle the error if there's any during the find operation
+      done(err);
+    } else {
+      // Update the found person by adding the new food to the favoriteFoods array
+      foundPerson.favoriteFoods.push(foodToAdd);
+
+      // Save the updated person
+      foundPerson.save((err, updatedPerson) => {
+        if (err) {
+          // Handle the error if there's any during the save operation
+          done(err);
+        } else {
+          // If successful, call the 'done' callback with null and the updated person
+          done(null, updatedPerson);
+        }
+      });
+    }
+  });
 };
+
+  
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
